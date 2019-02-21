@@ -1,0 +1,96 @@
+{{define "content"}}
+    <main class="page payment-page">
+        <section class="payment-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2>Payment</h2>
+                </div>
+
+                <div class="products">
+                    <h3 class="title">Checkout</h3>
+                    <div class="item">
+                        <span class="price">${{.Product.Price}}</span>
+                        <p class="item-name">{{.Product.Code}}</p>
+                        <p class="item-description">{{.Product.Description}}</p>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#newCard" role="tab"
+                           aria-controls="home" aria-selected="true">New Card</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ if .NotHasSavedCard}} disabled {{end}}" id="profile-tab" data-toggle="tab"
+                           href="#savedCard" role="tab"
+                           aria-controls="profile" aria-selected="false">Saved Card</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="newCard" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card-details">
+                            <form method="post" action="/payment">
+                                <h3 class="title">Credit Card Details</h3>
+                                <div class="row">
+                                    <input hidden name="product" value="{{.Product.ID}}">
+                                    <input hidden name="method" value="new">
+                                    <div class="form-group col-sm-7">
+                                        <label for="card-holder">Card Holder</label>
+                                        <input name="card-holder" id="card-holder" type="text" class="form-control"
+                                               placeholder="Card Holder"
+                                               aria-label="Card Holder" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="form-group col-sm-5">
+                                        <label for="">Expiration Date</label>
+                                        <div class="input-group expiration-date">
+                                            <input name="exp-month" type="text" class="form-control" placeholder="MM"
+                                                   aria-label="MM"
+                                                   aria-describedby="basic-addon1">
+                                            <span class="date-separator">/</span>
+                                            <input name="exp-year" type="text" class="form-control" placeholder="YYYY"
+                                                   aria-label="YYYY"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-8">
+                                        <label for="card-number">Card Number</label>
+                                        <input name="card-number" id="card-number" type="text" class="form-control"
+                                               placeholder="Card Number"
+                                               aria-label="Card Holder" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="cvc">CVC</label>
+                                        <input name="cvc" id="cvc" type="text" class="form-control" placeholder="CVC"
+                                               aria-label="Card Holder" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <input type="submit" class="btn btn-primary" value="Proceed">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="savedCard" role="tabpanel" aria-labelledby="profile-tab">
+                        <form action="/payment" method="post">
+                            <div class="form-group">
+                                <input hidden name="product" value="{{.Product.ID}}">
+                                <input hidden name="method" value="saved">
+                                <label for="Saved Card">Example select</label>
+                                <select name="saved-card" class="form-control" id="exampleFormControlSelect1">
+                                    {{range .SavedCards}}
+                                        <option value="{{.ID}}">{{.CardMask}}</option>
+                                    {{end}}
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <input type="submit" class="btn btn-primary" value="Proceed">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+{{end}}

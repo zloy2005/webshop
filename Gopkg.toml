@@ -1,0 +1,12 @@
+required = [
+    "github.com/sirupsen/logrus",
+    "github.com/golangci/golangci-lint/cmd/golangci-lint",
+]
+
+[[constraint]]
+  name = "github.com/golangci/golangci-lint"
+  version = "~1.11.3"
+
+[prune]
+  go-tests = true
+  unused-packages = true

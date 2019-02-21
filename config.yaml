@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+storage:
+  user: zloy
+  password: zloy
+  host: localhost
+  port: 5432
+  dbname: db_shop
+
+payment:
+  merchant: unicorn
+  key: 20c20ee3-4173-4daa-87e5-dbcce8c7949d
+
